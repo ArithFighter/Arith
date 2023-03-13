@@ -1,17 +1,20 @@
 package com.arithfighter;
 
-import com.arithfighter.entity.asset.ArithAsset;
+import com.arithfighter.asset.ArithAsset;
+import com.arithfighter.asset.AssetService;
 import com.arithfighter.entity.font.FontService;
+import com.arithfighter.scene.SceneBuilder;
+import com.arithfighter.scene.SceneRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Arither extends ApplicationAdapter {
     SpriteBatch batch;
-    Title title;
+    SceneBuilder sceneBuilder;
+    SceneRenderer sceneRenderer;
     ArithAsset arithAsset;
 
     @Override
@@ -21,7 +24,11 @@ public class Arither extends ApplicationAdapter {
         arithAsset = new ArithAsset();
         arithAsset.load();
 
-        title = new Title(new FontService("pcsenior.ttf"), (Texture) arithAsset.getAssetManager().get("badlogic.jpg"));
+        AssetService assetService = new AssetService(arithAsset);
+        FontService pixelFonts = new FontService(arithAsset.getAssetLibrary().getFontList().get(0));
+
+        sceneBuilder = new SceneBuilder(pixelFonts, assetService.getTextureMap().get("badlogic.jpg"), batch);
+        sceneRenderer = new SceneRenderer(batch, sceneBuilder.getSceneMap());
     }
 
     @Override
@@ -33,18 +40,15 @@ public class Arither extends ApplicationAdapter {
 
         assetManager.update(17);
 
-        if (assetManager.update()){
-            batch.begin();
-            title.render(batch);
-            batch.end();
+        if (assetManager.update()) {
+            sceneRenderer.render();
         }
-
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        title.dispose();
+        sceneBuilder.dispose();
         arithAsset.dispose();
     }
 }

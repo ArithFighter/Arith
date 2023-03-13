@@ -1,4 +1,4 @@
-package com.arithfighter.entity.asset
+package com.arithfighter.asset
 
 import java.util.ArrayList
 

@@ -1,4 +1,4 @@
-package com.arithfighter.entity.asset
+package com.arithfighter.asset
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Texture
