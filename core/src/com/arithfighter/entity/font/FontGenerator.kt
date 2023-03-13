@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.Gdx
 
 class FontGenerator(path: String?) {
-    val fontGenerator: FreeTypeFontGenerator
+    private val fontGenerator: FreeTypeFontGenerator
     val fontParameter: FreeTypeFontParameter
 
     init {
@@ -16,9 +16,5 @@ class FontGenerator(path: String?) {
 
     fun getNewFont(): BitmapFont? {
         return fontGenerator.generateFont(fontParameter)
-    }
-
-    fun dispose() {
-        fontGenerator.dispose()
     }
 }
